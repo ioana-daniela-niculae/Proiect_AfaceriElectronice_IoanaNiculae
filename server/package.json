@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ioana-daniela-niculae/Proiect_AfaceriElectronice_IoanaNiculae.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ioana-daniela-niculae/Proiect_AfaceriElectronice_IoanaNiculae/issues"
+  },
+  "homepage": "https://github.com/ioana-daniela-niculae/Proiect_AfaceriElectronice_IoanaNiculae#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "prisma": "^6.1.0"
+  }
+}
