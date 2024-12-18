@@ -1,9 +1,17 @@
 const express = require ('express');
 const dotenv = require ('dotenv');
-//fisierul .env e colorat cu verde => orice cheie pe care o vom salva in el si ii vom da commit + push => va ajunge pe github
-dotenv.config()
+const cors = require('cors');
+const morgan = require('morgan'); // Libr morgan ne afiseaza in consola ce tip de metoda s-a rulat (GET, PUT, DELETE..)
+const User = require('./database/models/User');
+const userRoutes = require('./routes/user.routes');
+const authRoutes = require('./routes/auth.routes'); //ca sa lucram cu aceasta librarie trebuie sa setam o noua cheie de env in fis .env
+const verifyToken = require('./utils');
+
+
 
 const app = express();
+//fisierul .env e colorat cu verde => orice cheie pe care o vom salva in el si ii vom da commit + push => va ajunge pe github
+dotenv.config()
 
 // console.log(process.env.PORT) - nu mai avem nevoie de acest log pt ca am salvat cheia in .env
 const PORT = process.env.PORT || 3000;
@@ -13,6 +21,22 @@ app.get('/', (req, res) => {
 res.status(200).json({message: 'Hello' })
 
 })
+
+
+app.use(morgan('dev'))
+
+
+app.use(cors({
+    origin: 'http://127.0.0.1:5500'
+}));
+
+app.use(express.json());
+
+app.use('/users', verifyToken, userRoutes); //de fiecare data cand se apeleaza vreo ruta indiferent de tipul metodei prin care se apeleaza
+                                           // sa se uite in fisierul userRoutes
+
+
+app.use('/auth', authRoutes);
 
 app.listen(PORT, () => {
 
