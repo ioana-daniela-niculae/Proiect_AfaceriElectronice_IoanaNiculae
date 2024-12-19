@@ -19,11 +19,26 @@ jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
 
     req.userId = decoded.id;
 
-    next();
+    next(); // are dreptul sa mearga mai departe catre routere (userRoutes)
 
 })
 
 }
 
-module.exports = verifyToken; // ca sa putem sa o apelam in index.js in app.use('/auth', verifyToken, authRoutes);
+const isValidToken = (token) => {
+    try {
+         jwt.verify(token, process.env.TOKEN_SECRET);
+         return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+//module.exports = verifyToken; // ca sa putem sa o apelam in index.js in app.use('/auth', verifyToken, authRoutes);
                               // si sa putem vedea ce lucram
+
+
+ module.exports = {
+    verifyToken,
+    isValidToken
+ }                             
