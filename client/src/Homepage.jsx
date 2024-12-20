@@ -5,13 +5,16 @@ import Filters from "./Filters";
 function Homepage() {
   const [filters, setFilters] = useState({
     category: "",
+    searchQuery: "", // Adăugăm filtrul pentru căutare
   });
 
   return (
     <div className="homepageWrapper">
-      <Filters setFilters={setFilters} />
+      {/* Bara de filtre include și bara de căutare */}
+      <Filters filters={filters} setFilters={setFilters} />
       <div>
-        <Products filters={filters} setFilters={setFilters} />
+        {/* Transmitem filtrele actualizate către componentele de produse */}
+        <Products filters={filters} />
       </div>
     </div>
   );
