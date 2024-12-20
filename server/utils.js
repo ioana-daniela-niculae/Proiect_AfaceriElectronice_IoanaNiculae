@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 //middlewear de verificare
 
 //in index.js am linia app.use('/users', verifyToken, userRoutes);
-// practiv functia verifyToken va stabili daca requestul poate sa mearga mai departe
+// functia verifyToken va stabili daca requestul poate sa mearga mai departe
 // catre ruta (userRoutes) si sa execute de e acolo sau nu
 //si fct verifyToken e un fel de ruta, deci are acces la req si res
 //daca nu apelam next nu va putea trece mai departe

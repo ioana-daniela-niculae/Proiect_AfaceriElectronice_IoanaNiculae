@@ -1,31 +1,28 @@
-const express = require ('express');
-const bcrypt = require ('bcrypt');
-const jwt = require ('jsonwebtoken');
-const User = require("../database/models/User");
+const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../database/models/User');
 const { isValidToken } = require('../utils');
 
 const router = express.Router();
 
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body; // avem nev pe email si parola pe care le scoatem din req.body;
-//req.body e un obiect  
+    const { email, password } = req.body;
+
     const existingUser = await User.findOne({
         where: {
             email
         }
     })
 
-    //daca nu gaseste userul -> ! e negatia
     if (!existingUser) {
         return res.status(400).json({success: false, message: 'User not found', data: {}});
     }
-    
-    const isValidPassword = bcrypt.compareSync(password, existingUser.dataValues.password); 
-    //comparam stringul pe care l-am prim in request (password) cu parola pe care noi
-    //avem in baza de date (existingUser.dataValues.password)
+
+    const isValidPassword = bcrypt.compareSync(password, existingUser.dataValues.password);
 
     if (!isValidPassword) {
-        return res.status(400).json({success: false, message: 'Not the same password', data: {}});
+        return res.status(400).json({success: false, message: 'Incorrect password. Try Again!', data: {}});
     }
 
     const token = jwt.sign({id: existingUser.dataValues.id}, process.env.TOKEN_SECRET, {
@@ -34,7 +31,6 @@ router.post('/login', async (req, res) => {
 
     res.status(200).json({success: true, message: 'Valid email and password', data: token})
 })
-
 
 router.post('/check', async (req, res) => {
     const token = req.body.token;
@@ -48,8 +44,9 @@ router.post('/check', async (req, res) => {
     if (!validToken) {
         return res.status(400).json({success: false, message: 'Token not valid', data: {}})
     }
+    res.status(200).json({success: true, message: 'Token is valid', data:{} })
 
-    res.status(200).json({success: true, message: 'Token is valid', data: { token }})
 })
+
 
 module.exports = router;

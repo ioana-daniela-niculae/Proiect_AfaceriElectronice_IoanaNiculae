@@ -10,7 +10,7 @@ const {verifyToken} = require('./utils');
 
 
 const app = express();
-//fisierul .env e colorat cu verde => orice cheie pe care o vom salva in el si ii vom da commit + push => va ajunge pe github
+//fisierul .env - cheie pe care o vom salva in el si ii vom da commit + push => va ajunge pe github
 dotenv.config()
 
 // console.log(process.env.PORT) - nu mai avem nevoie de acest log pt ca am salvat cheia in .env

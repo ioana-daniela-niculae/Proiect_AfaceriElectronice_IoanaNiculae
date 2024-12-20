@@ -9,13 +9,13 @@ const router = express.Router();
 
 //metoda de getAll
 router.get('/', async (req, res) => {
-    //console.log(req.userId) - afiseaza in consola id-ul utilizatorului si sa returnam toate datele pe baza id-ului
+    //console.log(req.userId) - afiseaza in consola id-ul utilizatorului si returneaza toate datele pe baza id-ului
     const users = await User.findAll({
         attributes:{
             exclude: ['password']
         }
     });
-    //la atribute sa ne excluda parola ca sa nu mai fie vizibila tuturor si e de tip array
+    //exclude parola ca sa nu mai fie vizibila tuturor
     res.status(200).json(users);
     
     })
